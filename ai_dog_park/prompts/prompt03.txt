@@ -1,0 +1,15 @@
+I have a simple static website hosting an interactive game in the directory "ai_dog_park/website".
+It uses an html page, one styles.css, javascript, and  images under images directory.
+
+ Make this AI quiz game more compact and space-efficient. Please reduce the overall size by making the following adjustments:
+
+- Shrink the decorative elements - make the dog illustrations smaller and reduce the spacing around them
+- Compress the Dog Park header section - reduce its height and padding
+- Make the question text more compact - reduce font size and line spacing while keeping it readable
+- Shrink the answer buttons - make them smaller with less padding and spacing between them
+- Reduce overall margins and padding throughout the interface
+
+Keep the visual design and functionality the same, just make everything more compact so it takes up less vertical space on the screen.
+
+
+

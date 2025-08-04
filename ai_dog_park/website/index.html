@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Terms Dog Park Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>Dog Park Quiz</h1>
+           For every correct answer you give, one happy dog gets to enter the dog park.
+            <div class="header-info">
+                <div class="score-board">
+                    <div class="score">Score: <span id="score">0</span></div>
+                    <div class="question-counter">Question: <span id="current-question">1</span> of <span id="total-questions">0</span></div>
+                </div>
+                <div class="dog-counters">
+                    <span class="dog-count">Dogs in Park: <span id="parked-dogs-count">0</span></span>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Walking Dogs Section -->
+        <div class="walking-dogs-section" id="walking-dogs-section">
+            <div class="walking-dogs-container" id="walking-dogs-container">
+                <!-- Dogs will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Dog Park Section -->
+        <div class="dog-park-section" id="dog-park-section">
+            <h3 class="dog-park-title">🌳 Dog Park 🌳</h3>
+            <div class="dog-park-container" id="dog-park-container">
+                <!-- Dogs will be moved here after correct answers -->
+            </div>
+        </div>
+
+        <main class="game-content">
+            <div id="loading-screen" class="loading-screen">
+                <div class="loading-spinner"></div>
+                <p>Loading AI Terms...</p>
+            </div>
+
+            <div id="game-screen" class="game-screen hidden">
+                <div class="question-section">
+                    <div class="definition-box">
+                        <div class="question-header">
+                            <h3 class="question-text">What term matches this definition?</h3>
+                            <h4 class="game-name" id="game-name"></h4>
+                        </div>
+                        <p id="definition-text"></p>
+                    </div>
+                    
+                    <div class="answers-grid" id="answers-grid">
+                        <!-- Answer buttons will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="game-controls">
+                    <button id="next-question" class="btn btn-primary hidden">Next Question</button>
+                    <button id="restart-game" class="btn btn-secondary hidden">Play Again</button>
+                </div>
+            </div>
+
+            <div id="final-screen" class="final-screen hidden">
+                <div class="final-score-container">
+                    <h2>🎉 Game Complete! 🎉</h2>
+                    <div class="final-score">
+                        <p>Your Final Score:</p>
+                        <span id="final-score">0</span> / <span id="final-total">0</span>
+                    </div>
+                    <div class="performance-feedback" id="performance-feedback"></div>
+                    <button id="play-again" class="btn btn-primary">Play Again</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="attribution">
+        <a href="https://iconscout.com/icons/dogue-de-bordeaux" class="text-underline font-size-sm" target="_blank">Dogue De Bordeaux</a> by <a href="https://iconscout.com/contributors/komkrit-noenpoempisut" class="text-underline font-size-sm" target="_blank">itim2101</a>
+    </footer>
+
+    <script>
+        const terms = {
+          "game_name": "AI Terms",
+          "terms": [
+            {
+              "term": "Machine Learning",
+              "definition": "A subset of artificial intelligence that enables computers to learn and improve from experience without being explicitly programmed for every task.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Neural Network",
+              "definition": "A computational model inspired by biological neural networks, consisting of interconnected nodes that process information in layers.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Deep Learning",
+              "definition": "A machine learning technique using neural networks with multiple hidden layers to model and understand complex patterns in data.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Natural Language Processing",
+              "definition": "A field of AI that focuses on the interaction between computers and human language, enabling machines to understand, interpret, and generate human text.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Computer Vision",
+              "definition": "An AI field that trains computers to interpret and understand visual information from the world, such as images and videos.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Reinforcement Learning",
+              "definition": "A type of machine learning where an agent learns to make decisions by receiving rewards or penalties for actions taken in an environment.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Supervised Learning",
+              "definition": "A machine learning approach where algorithms learn from labeled training data to make predictions or classifications on new, unseen data.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Unsupervised Learning",
+              "definition": "A machine learning approach where algorithms find hidden patterns in data without being given labeled examples or target outputs.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Artificial General Intelligence",
+              "definition": "A hypothetical form of AI that possesses the ability to understand, learn, and apply intelligence across a wide range of tasks at a level comparable to human intelligence.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Large Language Model",
+              "definition": "An AI model trained on vast amounts of text data that can understand and generate human-like text for various language tasks.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Transformer",
+              "definition": "A neural network architecture that uses attention mechanisms to process sequential data, particularly effective for language tasks.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Attention Mechanism",
+              "definition": "A technique in neural networks that allows the model to focus on specific parts of the input when making predictions or generating outputs.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Gradient Descent",
+              "definition": "An optimization algorithm used to minimize the error in machine learning models by iteratively adjusting parameters in the direction of steepest decrease.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Overfitting",
+              "definition": "A modeling error where a machine learning model learns the training data too well, including noise, resulting in poor performance on new data.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Feature Engineering",
+              "definition": "The process of selecting, modifying, or creating input variables (features) to improve the performance of machine learning models.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Cross-Validation",
+              "definition": "A statistical method used to estimate the performance of machine learning models by partitioning data into training and testing subsets multiple times.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Bias-Variance Tradeoff",
+              "definition": "The balance between a model's ability to minimize bias (error from overly simplistic assumptions) and variance (error from sensitivity to small changes in training data).",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Convolutional Neural Network",
+              "definition": "A type of neural network particularly effective for processing grid-like data such as images, using convolutional layers to detect local features.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Recurrent Neural Network",
+              "definition": "A neural network architecture designed to work with sequential data by maintaining hidden states that can capture information from previous time steps.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Generative Adversarial Network",
+              "definition": "A machine learning architecture consisting of two neural networks competing against each other to generate new, synthetic data that resembles real data.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Transfer Learning",
+              "definition": "A technique where a model trained on one task is adapted for a related task, leveraging previously learned features to improve performance with less data.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Hyperparameter",
+              "definition": "Configuration settings that are set before training a machine learning model and control the learning process, such as learning rate or number of layers.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Ensemble Learning",
+              "definition": "A technique that combines multiple machine learning models to create a stronger predictor than any individual model alone.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Backpropagation",
+              "definition": "An algorithm used to train neural networks by calculating gradients of the loss function and propagating them backward through the network layers.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Activation Function",
+              "definition": "A mathematical function applied to the output of neurons in neural networks to introduce non-linearity and determine whether a neuron should be activated.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Loss Function",
+              "definition": "A mathematical function that measures the difference between predicted and actual values, guiding the optimization process during model training.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Epoch",
+              "definition": "One complete pass through the entire training dataset during the machine learning model training process.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Batch Size",
+              "definition": "The number of training examples processed together in one iteration during model training before updating the model parameters.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Regularization",
+              "definition": "Techniques used to prevent overfitting by adding penalties to the loss function or modifying the training process to improve model generalization.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Dropout",
+              "definition": "A regularization technique where randomly selected neurons are ignored during training to prevent overfitting and improve generalization.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Learning Rate",
+              "definition": "A hyperparameter that controls how much the model parameters are adjusted during training with respect to the loss gradient.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Fine-tuning",
+              "definition": "The process of taking a pre-trained model and adjusting its parameters for a specific task, often by training on task-specific data.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Artificial Neural Network",
+              "definition": "A computing system inspired by biological neural networks, consisting of interconnected nodes that process information to solve complex problems.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Algorithm",
+              "definition": "A set of rules or instructions that a computer follows to solve a problem or complete a task, fundamental to all AI and machine learning systems.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Data Mining",
+              "definition": "The process of discovering patterns, correlations, and useful information from large datasets using statistical and computational techniques.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Clustering",
+              "definition": "An unsupervised learning technique that groups similar data points together based on their characteristics or features.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Classification",
+              "definition": "A supervised learning task where the algorithm learns to categorize data into predefined classes or categories.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Regression",
+              "definition": "A supervised learning technique used to predict continuous numerical values based on input features.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Training Data",
+              "definition": "The dataset used to teach a machine learning algorithm by providing examples of inputs and their corresponding correct outputs.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Test Data",
+              "definition": "A separate dataset used to evaluate the performance of a trained machine learning model on previously unseen examples.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Validation Data",
+              "definition": "A subset of data used during model development to tune hyperparameters and assess model performance before final testing.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Feature",
+              "definition": "An individual measurable property or characteristic of an object or phenomenon being observed in machine learning.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Model",
+              "definition": "A mathematical representation or algorithm that has been trained to make predictions or decisions based on input data.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Prediction",
+              "definition": "The output or result generated by a machine learning model when given new input data to analyze.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Accuracy",
+              "definition": "A metric that measures the percentage of correct predictions made by a machine learning model out of all predictions.",
+              "difficulty": "easy"
+            },
+            {
+              "term": "Precision",
+              "definition": "A metric that measures the proportion of positive predictions that were actually correct, focusing on the quality of positive predictions.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Recall",
+              "definition": "A metric that measures the proportion of actual positive cases that were correctly identified by the model.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "F1 Score",
+              "definition": "A metric that combines precision and recall into a single score, providing a balanced measure of a model's performance.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Confusion Matrix",
+              "definition": "A table used to evaluate the performance of a classification model by showing the counts of true and false predictions for each class.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "ROC Curve",
+              "definition": "A graphical plot that illustrates the performance of a binary classification model at various threshold settings.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Principal Component Analysis",
+              "definition": "A dimensionality reduction technique that transforms data to a lower-dimensional space while preserving the most important variations.",
+              "difficulty": "hard"
+            },
+            {
+              "term": "Dimensionality Reduction",
+              "definition": "The process of reducing the number of features in a dataset while retaining the most important information.",
+              "difficulty": "medium"
+            },
+            {
+              "term": "Artificial Intelligence",
+              "definition": "The simulation of human intelligence in machines that are programmed to think, learn, and solve problems like humans.",
+              "difficulty": "easy"
+            }
+          ]
+        };
+    </script>
+    <script src="game.js?v=1.4"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Use the following dog images in the images folder
+dogue-de-bordeaux-r2l.svg for the dogs that move from right to left
+dogue-de-bordeaux-l2r.svg for the dogs that move from left to right.
+place this link at the bottom of the page
+<a href="https://iconscout.com/icons/dogue-de-bordeaux" class="text-underline font-size-sm" target="_blank">Dogue De Bordeaux</a> by <a href="https://iconscout.com/contributors/komkrit-noenpoempisut" class="text-underline font-size-sm" target="_blank">itim2101</a>
+Please replace the dogs in the game with the dogue-de-bordeaux.svg located in the images folder
+=======================================================
+There are only ten dog available to be placed in the dog park. 
+The number of dogs available to be placed in the park has to remain 10, until the sum of the numbers of both the dogs already placed in the park and the dogs avialable to be placed in the park equates the number of definitions in the json file. It should never be more than the number of definitions in the json file.
+

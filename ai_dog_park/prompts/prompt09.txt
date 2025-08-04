@@ -1,0 +1,5 @@
+I have a simple static website in directory "ai_dog_park/website".
+It uses html pages, one styles.css, javascript, images under images directory.
+create a small python script to convert json file into "js' file
+=======================================================
+go through the website directory and update all "ai_terms" references and file names to "terms"

@@ -1,0 +1,144 @@
+Replace the dog images currently used with this animation
+
+
+// 1. Create the CSS styles
+function addDogStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .walking-dog {
+            position: absolute;
+            width: 100px;
+            height: 60px;
+            animation: moveLeftRight 8s linear infinite;
+        }
+        
+        .dog-body {
+            position: absolute;
+            width: 60px;
+            height: 25px;
+            background: #F5DEB3;
+            border: 2px solid #000;
+            border-radius: 20px 15px 15px 8px;
+            top: 20px;
+            left: 15px;
+        }
+        
+        /* Copy all other CSS classes here... */
+        
+        @keyframes moveLeftRight {
+            0% { transform: translateX(0px) scaleX(1); }
+            48% { transform: translateX(600px) scaleX(1); }
+            50% { transform: translateX(600px) scaleX(-1); }
+            98% { transform: translateX(0px) scaleX(-1); }
+            100% { transform: translateX(0px) scaleX(1); }
+        }
+        
+        @keyframes frontLegWalk { /* ... */ }
+        @keyframes backLegWalk { /* ... */ }
+        @keyframes tailWag1 { /* ... */ }
+        @keyframes tailWag2 { /* ... */ }
+        @keyframes earFlop { /* ... */ }
+    `;
+    document.head.appendChild(style);
+}
+
+// 2. Create the dog HTML
+function createDog(x = 50, y = 200) {
+    const dogContainer = document.createElement('div');
+    dogContainer.className = 'walking-dog';
+    dogContainer.style.left = x + 'px';
+    dogContainer.style.top = y + 'px';
+    dogContainer.id = 'game-dog';
+    
+    dogContainer.innerHTML = `
+        <div class="dog-head">
+            <div class="dog-ear ear-left"></div>
+            <div class="dog-eye eye-left"></div>
+            <div class="dog-eye eye-right"></div>
+            <div class="dog-nose"></div>
+        </div>
+        <div class="dog-snout"></div>
+        <div class="dog-body"></div>
+        <div class="dog-leg leg-fl"></div>
+        <div class="dog-leg leg-fr"></div>
+        <div class="dog-leg leg-bl"></div>
+        <div class="dog-leg leg-br"></div>
+        <div class="dog-tail"></div>
+    `;
+    
+    return dogContainer;
+}
+
+// 3. Dog control functions
+class GameDog {
+    constructor(container, x = 50, y = 200) {
+        this.container = container;
+        this.element = createDog(x, y);
+        this.x = x;
+        this.y = y;
+        this.isMoving = false;
+        this.facingRight = true;
+        
+        container.appendChild(this.element);
+    }
+    
+    moveTo(x, y, duration = 1000) {
+        this.x = x;
+        this.y = y;
+        
+        this.element.style.transition = `transform ${duration}ms ease-in-out`;
+        
+        // Determine direction
+        const currentX = parseInt(this.element.style.left) || this.x;
+        this.facingRight = x > currentX;
+        
+        // Apply movement and direction
+        const scaleX = this.facingRight ? 1 : -1;
+        this.element.style.transform = `translate(${x}px, ${y}px) scaleX(${scaleX})`;
+    }
+    
+    startWalking() {
+        this.element.classList.add('walking-dog');
+    }
+    
+    stopWalking() {
+        this.element.classList.remove('walking-dog');
+    }
+    
+    pause() {
+        this.element.style.animationPlayState = 'paused';
+        // Pause all child animations too
+        const animatedElements = this.element.querySelectorAll('*');
+        animatedElements.forEach(el => {
+            el.style.animationPlayState = 'paused';
+        });
+    }
+    
+    resume() {
+        this.element.style.animationPlayState = 'running';
+        const animatedElements = this.element.querySelectorAll('*');
+        animatedElements.forEach(el => {
+            el.style.animationPlayState = 'running';
+        });
+    }
+    
+    remove() {
+        this.element.remove();
+    }
+}
+
+// 4. Initialize in your game
+function initializeGame() {
+    // Add styles first
+    addDogStyles();
+    
+    // Create dog
+    const gameContainer = document.getElementById('game-container'); // Your game container
+    const myDog = new GameDog(gameContainer, 100, 200);
+    
+    // Example usage:
+    // myDog.moveTo(300, 200, 2000); // Move to x:300, y:200 over 2 seconds
+    // myDog.pause(); // Pause animations
+    // myDog.resume(); // Resume animations
+}
+=======================================================

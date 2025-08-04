@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Walking Left-Right</title>
+    <style>
+        body {
+            background: #87CEEB;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .dog-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+
+        .walking-dog {
+            position: absolute;
+            width: 100px;
+            height: 60px;
+            top: 200px;
+            left: 50px;
+        }
+
+        .dog-body {
+            position: absolute;
+            width: 60px;
+            height: 25px;
+            background: #F5DEB3;
+            border: 2px solid #000;
+            border-radius: 20px 15px 15px 8px;
+            top: 20px;
+            left: 15px;
+        }
+
+        /* Multiple brown spots on body */
+        .dog-body::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 8px;
+            background: #8B4513;
+            border-radius: 50%;
+            top: 3px;
+            left: 8px;
+            box-shadow: 
+                20px 5px 0 -2px #8B4513,
+                10px 12px 0 -4px #8B4513,
+                35px 10px 0 -3px #8B4513,
+                45px 2px 0 -4px #8B4513;
+        }
+
+        .dog-body::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 6px;
+            background: #8B4513;
+            border-radius: 50%;
+            top: 15px;
+            left: 25px;
+            box-shadow: 
+                15px -3px 0 -2px #8B4513,
+                -10px 2px 0 -1px #8B4513;
+        }
+
+        .dog-head {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #F5DEB3;
+            border: 2px solid #000;
+            border-radius: 12px 20px 12px 8px;
+            top: 15px;
+            right: 0px;
+        }
+
+        /* Multiple brown spots on head */
+        .dog-head::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 8px;
+            background: #8B4513;
+            border-radius: 50%;
+            top: 5px;
+            left: 8px;
+            box-shadow: 
+                8px 8px 0 -3px #8B4513,
+                -3px 12px 0 -4px #8B4513;
+        }
+
+        /* Dog snout - makes it look more dog-like */
+        .dog-snout {
+            position: absolute;
+            width: 15px;
+            height: 12px;
+            background: #F5DEB3;
+            border: 1px solid #000;
+            border-radius: 8px;
+            top: 20px;
+            right: -8px;
+        }
+
+        .dog-ear {
+            position: absolute;
+            width: 12px;
+            height: 20px;
+            background: #8B4513;
+            border: 2px solid #000;
+            border-radius: 60% 40% 40% 60%;
+            transform-origin: top center;
+            z-index: 5;
+        }
+
+        .ear-left { 
+            top: 2px; 
+            left: -3px; 
+            transform: rotate(-30deg);
+            animation: earFlop 1.2s ease-in-out infinite;
+        }
+
+        @keyframes earFlop {
+            0%, 100% { transform: rotate(-30deg); }
+            50% { transform: rotate(-40deg); }
+        }
+
+        .dog-eye {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #000;
+            border-radius: 50%;
+            top: 10px;
+        }
+
+        .eye-left { left: 8px; }
+        .eye-right { left: 18px; }
+
+        .dog-nose {
+            position: absolute;
+            width: 8px;
+            height: 6px;
+            background: #000;
+            border-radius: 50% 50% 0 0;
+            top: 6px;
+            right: -2px;
+            z-index: 3;
+        }
+
+        /* Add nostrils */
+        .dog-nose::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #555;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+        }
+
+        .dog-nose::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #555;
+            border-radius: 50%;
+            top: 2px;
+            right: 2px;
+        }
+
+        .dog-leg {
+            position: absolute;
+            width: 5px;
+            height: 18px;
+            background: #F5DEB3;
+            border: 1px solid #000;
+            border-radius: 3px;
+            bottom: 0;
+            transform-origin: top center;
+        }
+
+        .leg-fl { left: 25px; animation: frontLegWalk 0.4s ease-in-out infinite; }
+        .leg-fr { left: 35px; animation: frontLegWalk 0.4s ease-in-out infinite reverse; }
+        .leg-bl { left: 55px; animation: backLegWalk 0.4s ease-in-out infinite reverse; }
+        .leg-br { left: 65px; animation: backLegWalk 0.4s ease-in-out infinite; }
+
+        @keyframes frontLegWalk {
+            0%, 100% { transform: rotate(0deg) translateY(0px); }
+            25% { transform: rotate(25deg) translateY(-3px); }
+            50% { transform: rotate(0deg) translateY(0px); }
+            75% { transform: rotate(-25deg) translateY(-3px); }
+        }
+
+        @keyframes backLegWalk {
+            0%, 100% { transform: rotate(0deg) translateY(0px); }
+            25% { transform: rotate(-20deg) translateY(-3px); }
+            50% { transform: rotate(0deg) translateY(0px); }
+            75% { transform: rotate(20deg) translateY(-3px); }
+        }
+
+        .dog-tail {
+            position: absolute;
+            width: 3px;
+            height: 20px;
+            top: 12px;
+            left: 18px;
+            transform-origin: bottom center;
+            z-index: -1;
+        }
+
+        .dog-tail::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 12px;
+            background: #F5DEB3;
+            border: 1px solid #000;
+            border-radius: 2px;
+            bottom: 0;
+            animation: tailWag1 0.8s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .dog-tail::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 10px;
+            background: #F5DEB3;
+            border: 1px solid #000;
+            border-radius: 2px;
+            top: 8px;
+            left: 0;
+            animation: tailWag2 0.8s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        @keyframes tailWag1 {
+            0%, 100% { transform: rotate(-20deg); }
+            50% { transform: rotate(20deg); }
+        }
+
+        @keyframes tailWag2 {
+            0%, 100% { transform: rotate(-30deg); }
+            50% { transform: rotate(30deg); }
+        }
+
+        /* Left-Right movement only */
+        .walking-dog {
+            animation: moveLeftRight 8s linear infinite;
+        }
+
+        @keyframes moveLeftRight {
+            0% { 
+                transform: translateX(0px) scaleX(1); 
+            }
+            48% { 
+                transform: translateX(600px) scaleX(1); 
+            }
+            50% { 
+                transform: translateX(600px) scaleX(-1); 
+            }
+            98% { 
+                transform: translateX(0px) scaleX(-1); 
+            }
+            100% { 
+                transform: translateX(0px) scaleX(1); 
+            }
+        }
+
+        .controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            width: 120px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .speed-display {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        /* Manual movement mode */
+        .manual-mode {
+            animation: none !important;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .facing-left {
+            transform: scaleX(-1);
+        }
+
+        .facing-right {
+            transform: scaleX(1);
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h3>Walking Dog Control</h3>
+        <div class="speed-display">Speed: Normal</div>
+        <button onclick="pauseResume()">Pause/Resume</button>
+        <button onclick="speedUp()">Speed Up</button>
+        <button onclick="slowDown()">Slow Down</button>
+        <button onclick="toggleMode()">Manual Mode</button>
+        <button onclick="resetPosition()">Reset Position</button>
+        
+        <div id="manual-controls" style="display: none; margin-top: 10px;">
+            <button onclick="moveDirection('left')">← Move Left</button>
+            <button onclick="moveDirection('right')">→ Move Right</button>
+        </div>
+    </div>
+
+    <div class="dog-container">
+        <div class="walking-dog" id="dog">
+            <div class="dog-head">
+                <div class="dog-ear ear-left"></div>
+                <div class="dog-eye eye-left"></div>
+                <div class="dog-eye eye-right"></div>
+                <div class="dog-nose"></div>
+            </div>
+            <div class="dog-snout"></div>
+            <div class="dog-body"></div>
+            <div class="dog-leg leg-fl"></div>
+            <div class="dog-leg leg-fr"></div>
+            <div class="dog-leg leg-bl"></div>
+            <div class="dog-leg leg-br"></div>
+            <div class="dog-tail"></div>
+        </div>
+    </div>
+
+    <script>
+        let isPaused = false;
+        let currentSpeed = 1;
+        let isManualMode = false;
+        let dogPosition = { x: 50 };
+        let facingRight = true;
+        
+        const dog = document.getElementById('dog');
+        const speedDisplay = document.querySelector('.speed-display');
+        const manualControls = document.getElementById('manual-controls');
+
+        function pauseResume() {
+            isPaused = !isPaused;
+            dog.style.animationPlayState = isPaused ? 'paused' : 'running';
+            
+            // Also pause leg animations
+            const legs = dog.querySelectorAll('.dog-leg');
+            const tail = dog.querySelector('.dog-tail');
+            const ears = dog.querySelectorAll('.dog-ear');
+            
+            [...legs, tail, ...ears].forEach(part => {
+                part.style.animationPlayState = isPaused ? 'paused' : 'running';
+            });
+        }
+
+        function speedUp() {
+            currentSpeed = Math.min(currentSpeed * 1.5, 4);
+            updateSpeed();
+        }
+
+        function slowDown() {
+            currentSpeed = Math.max(currentSpeed / 1.5, 0.25);
+            updateSpeed();
+        }
+
+        function updateSpeed() {
+            const newDuration = 8 / currentSpeed;
+            const legDuration = 0.4 / currentSpeed;
+            const tailDuration = 0.8 / currentSpeed;
+            const earDuration = 1.2 / currentSpeed;
+            
+            dog.style.animationDuration = `${newDuration}s`;
+            
+            const legs = dog.querySelectorAll('.dog-leg');
+            const tail = dog.querySelector('.dog-tail');
+            const ears = dog.querySelectorAll('.dog-ear');
+            
+            legs.forEach(leg => {
+                leg.style.animationDuration = `${legDuration}s`;
+            });
+            tail.style.animationDuration = `${tailDuration}s`;
+            ears.forEach(ear => {
+                ear.style.animationDuration = `${earDuration}s`;
+            });
+            
+            let speedText = 'Normal';
+            if (currentSpeed > 1.4) speedText = 'Fast';
+            if (currentSpeed > 2.5) speedText = 'Very Fast';
+            if (currentSpeed < 0.7) speedText = 'Slow';
+            if (currentSpeed < 0.4) speedText = 'Very Slow';
+            
+            speedDisplay.textContent = `Speed: ${speedText}`;
+        }
+
+        function toggleMode() {
+            isManualMode = !isManualMode;
+            
+            if (isManualMode) {
+                dog.classList.add('manual-mode');
+                manualControls.style.display = 'block';
+                // Get current position
+                dogPosition.x = 50; // Reset to starting position
+                facingRight = true;
+                dog.className = 'walking-dog manual-mode facing-right';
+            } else {
+                dog.classList.remove('manual-mode');
+                dog.className = 'walking-dog';
+                manualControls.style.display = 'none';
+                resetPosition();
+            }
+        }
+
+        function moveDirection(direction) {
+            if (!isManualMode) return;
+            
+            const moveDistance = 80;
+            let newX = dogPosition.x;
+            
+            if (direction === 'left') {
+                newX = Math.max(0, dogPosition.x - moveDistance);
+                facingRight = false;
+            } else if (direction === 'right') {
+                newX = Math.min(600, dogPosition.x + moveDistance);
+                facingRight = true;
+            }
+            
+            dogPosition.x = newX;
+            
+            // Apply movement and direction
+            const facingClass = facingRight ? 'facing-right' : 'facing-left';
+            dog.style.transform = `translateX(${newX}px)`;
+            dog.className = `walking-dog manual-mode ${facingClass}`;
+        }
+
+        function resetPosition() {
+            dogPosition = { x: 50 };
+            facingRight = true;
+            dog.style.transform = '';
+            dog.className = 'walking-dog';
+        }
+
+        // Click on dog to make it bark (visual feedback)
+        dog.addEventListener('click', function() {
+            this.style.filter = 'brightness(1.2)';
+            setTimeout(() => {
+                this.style.filter = '';
+            }, 200);
+        });
+
+        // Keyboard controls for manual mode
+        document.addEventListener('keydown', function(e) {
+            if (!isManualMode) return;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    moveDirection('left');
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    moveDirection('right');
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

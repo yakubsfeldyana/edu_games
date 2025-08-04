@@ -1,0 +1,13 @@
+I have a simple static website in directory "ai_dog_park/website".
+It uses html pages, one styles.css, javascript, images under images directory.
+Replace the dog animation in game.js with the animation code located in dog_animation.html
+=======================================================
+the game.js contains code from the json file. Remove the content of the json file from game.js.
+ The file game.js file should call json dynamically.
+ =====================================================
+ Add the following key and value to the JSON file:
+ "game_name" as the key and "AI Terms" as the value.
+ Display the name of the game on the right hand side opposite the "What term matches this definition?"
+ Make the "What term matches this definition?" smaller in font size.
+ ======================================================
+ make the value of the "game_name" key appear on index.html in a smaller size, with a pale green underline.

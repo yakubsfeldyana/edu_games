@@ -1,0 +1,19 @@
+I have a simple static website in directory "website".
+It uses html pages, one styles.css, javascript, images under images directory.
+The website should serve an interactive game similar to this: https://javaranch.com/game/game2.jsp 
+using the following json as a source of questions and answers
+ "ai_terms.json" located in the website directory.
+
+ I want  the game to be written in pure  client-side Javascript. 
+ I dont want to involve server.
+ I want to be able to run this game either locally or by uploading to a cloudflare.com pages.
+ When running locally please test two ways of invocation. One by double clicking on index.html, and second by starting a local python test web server.
+The layout should be compatible with both mobile and desktop. 
+We need only 1 css file, all styling should be only in the css file. 
+JS file  is needed, if needed more than 1 is acceptable. 
+Please create a directory "images". 
+Please use images of dogs instead of cows.
+Instead of pen, use a dog park.
+Include score tracking and progress bar.
+Randomized question and answer order.
+Final score display with performance feedback.

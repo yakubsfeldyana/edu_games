@@ -1,0 +1,34 @@
+I have a simple static website in directory "ai_dog_park/website".
+It uses html pages, one styles.css, javascript, images under images directory.
+The website serves an interactive game similar to this: https://javaranch.com/game/game2.jsp 
+using the following json as a source of questions and answers
+ "ai_terms.json" located in the website directory.
+
+ I want  the game to be built useing only Javascript, functionality to  be as follows:
+ the game should display a number of dogs walking back and forth in the top of the screen with the dog park below them.
+ The dogs should be funny, wagging tails and bouncing, drawn in primitive style.
+ For each correct answer, a dog shold be placed from the top section into the dog park.
+ when placed in the dog park, the dog should continue wolking back and forth.
+ ======================================================
+ when the game is run from index.html, this error appears 
+ Error
+Failed to load questions. Please check that ai_terms.json exists and is properly formatted.
+
+Make sure you have an 'ai_terms.json' file with the following format:
+{
+  "terms": [
+    {
+      "term": "Machine Learning",
+      "definition": "A subset of AI..."
+    }
+  ]
+}
+ensure that the file can be loaded from box localhost command and index.html as well
+=======================================================
+the dogs in the game look like birds. The dogs in the game should look like dogs, with longer legs, dog tails and ears.
+when turning around, they should not move backwards, but the image should flip instead, so that they are always moving with their head forward.
+=========================
+The dogs look like their bodies are separated from their heads and limbs. Please fix.
+=======================================================
+use dog1_walking.svg and dog5_walking.svg  and animated_dog_with_head_tail.svg in the images folder for the dog animation
+ 

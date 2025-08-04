@@ -1,0 +1,3 @@
+when the wrong answer is selected, have all the dogs that are not in the dog park flip on their backs, freeze for a second and then return to their normal positions.
+slow down a little bit the speed at which the dogs move across the screen.
+=======================================================

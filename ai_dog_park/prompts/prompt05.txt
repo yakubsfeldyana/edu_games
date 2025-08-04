@@ -1,0 +1,19 @@
+I have a simple static website hosting an interactive game in the directory "ai_dog_park/website".
+It uses an html page, one styles.css, javascript, and  images under images directory.
+Please update the header with the words "AI Terms.." to take up less space.  
+The "Next Question" button should appear faster then it does now.
+=====================================================
+Make the header section smaller and replace the text with "Dog Park Quiz"
+Move the counters to the header.
+Make the answer buttons smaller.
+When the wrong answer is selected, I want a dog outside of the dog park to bounce.
+Make the dog park area smaller as well.
+Make the answer buttons even smaller.
+==================================
+remove "available dogs" counter
+Remove the bounce animation from a dog when the wrong answer is selected.
+When the page is viewed on mobile, make the stacked buttons narrower than they are now.
+=======================================================
+I want the header, the middle section and the dog park area be shorter by 50 px.
+
+
